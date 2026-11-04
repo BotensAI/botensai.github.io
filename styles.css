@@ -1177,3 +1177,87 @@ html:not(.has-motion) .site-header {
     right: var(--pad);
     bottom: auto
 }
+
+/* Image fit: a frame that holds a real picture hugs it, so no empty grey band shows around it */
+.placeholder:has(> img),
+.hero-media:has(> img),
+.map:has(> img) {
+    display: block;
+    min-height: 0;
+    padding: 0;
+    background: none !important;
+    border-radius: 20px;
+    overflow: hidden
+}
+
+.placeholder > img,
+.hero-media > img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 0
+}
+
+/* Card photos share one shape so cards in a row line up */
+.card > img,
+.card > .placeholder > img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    border-radius: 16px
+}
+
+.card > .placeholder {
+    border-radius: 16px
+}
+
+/* Icons: keep the whole drawing, never crop */
+[data-k=core-capabilities] .card > img {
+    aspect-ratio: 1;
+    object-fit: contain
+}
+
+/* Inner-page headlines: sized for their half-width column, not the full-screen home hero */
+.hero:not(.home-hero) {
+    grid-template-columns: 1.2fr 1fr
+}
+
+.hero:not(.home-hero) h1 {
+    font-size: clamp(38px, 4.2vw, 72px);
+    line-height: 1;
+    letter-spacing: -.035em;
+    text-wrap: balance
+}
+
+@media(max-width:850px) {
+    .hero:not(.home-hero) {
+        grid-template-columns: 1fr
+    }
+
+    .hero:not(.home-hero) h1 {
+        font-size: clamp(36px, 11vw, 56px)
+    }
+}
+
+/* Map image has grey bars baked into both sides: trim them off */
+img[src*="global_presence_card"] {
+    aspect-ratio: 1212 / 420;
+    object-fit: cover
+}
+
+/* Outlined numbers were too faint on the dark background */
+.locations span {
+    -webkit-text-stroke: 1.5px #ffffffb3
+}
+
+[data-k=core-capabilities] .card::before,
+[data-k=key-features-key-technologies] .card::before {
+    -webkit-text-stroke: 1.5px #6f9bff
+}
+
+/* Core Capabilities icons have a solid black background: blend it away so the card colour shows through */
+[data-k=core-capabilities] .card > img {
+    mix-blend-mode: lighten;
+    border-radius: 0
+}
