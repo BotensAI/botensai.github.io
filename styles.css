@@ -710,6 +710,14 @@ details .dropdown {
     line-height: 1.7
 }
 
+.split>p,
+.split>div>p,
+.presence-intro,
+.long-copy-light {
+    font-size: 19px;
+    line-height: 1.7
+}
+
 .split h3 {
     font-size: clamp(24px, 2.4vw, 34px);
     text-transform: uppercase;
@@ -721,7 +729,7 @@ details .dropdown {
     margin-top: 72px
 }
 
-.long-copy {
+.long-copy, .long-copy-light {
     max-width: 1040px;
     margin: 40px 0 0
 }
@@ -1112,7 +1120,7 @@ footer a:hover {
     .split>p,
     .split>div>p,
     .presence-intro,
-    .long-copy {
+    .long-copy, .long-copy-light {
         font-size: 17px
     }
 
