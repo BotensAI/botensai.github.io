@@ -120,14 +120,6 @@
                     </div>
                 </div>
             </section>
-            <!--
-            <section class="section " data-k="news-center">
-                <div class="section-title" data-title="News Center">
-                    <h2>News Center</h2>
-                </div>
-                <div class="news-reserved" aria-label="Reserved space for future BOTENS news"></div>
-            </section>
-            -->
         </div>
         <div class="page" id="page-about" hidden>
             <section class="hero" data-k="hero">
@@ -200,18 +192,20 @@
                 <p class="long-copy">BOTens Robotics brings together a core team from the robotics and technology ecosystems of the United States, China, Singapore and other markets, covering key capabilities including corporate governance and capital operations, robotics technology and AI infrastructure R&amp;D, product engineering implementation, global sales and localized services. Team members have worked at leading global companies and organizations including AWS, G42 in the UAE and KPMG. They combine autonomous-driving technology backgrounds, AI infrastructure experience, global supply-chain management capabilities and international commercial operations experience, forming an integrated capability set of “global governance + technology R&amp;D + engineering implementation + commercialization operations” to continuously support the company's global expansion in Japan, Singapore, Thailand, the United States and other markets.</p>
             </section>
             -->
-            <section class="section" data-k="news-center">
+            <section class="section" data-k="news-center" aria-labelledby="news-center-title">
                 <div class="section-title" data-title="News Center">
                     <span class="eyebrow">BOTENS ROBOTICS</span>
-                    <h2>News Center</h2>
+                    <h2 id="news-center-title">News Center</h2>
                 </div>
-                <div>
-                    <h3>November 2026</h3>
-                    <p class="long-copy-light">🚀 Great news! Mongbotics, a technology innovation project developed with support from BOTens, has advanced to the mid-demonstration stage of the Protocol Camp Cohort 10 startup competition. Mongbotics is the only Thai team selected for this cohort.</p>
-                    <p class="long-copy-light">🤖 The project integrates four core modules: MongBot, an autonomous delivery robot; MongCore, a control and management system; MongChain, an on-chain identity and ownership framework; and MongMarket, a peer-to-peer marketplace. Competing in the AI-Enhanced/Vibe Coding track, Mongbotics has earned recognition from the judging panel for exploring practical applications of autonomous robotics. The project is seen as having the potential to promote AI adoption in Thailand and support technology and innovation development in the Eastern Economic Corridor (EEC).</p>
-                    <p class="long-copy-light">🗓️ On November 28, the team will showcase its full-stack robotics solution at the Mid-Demo Day in Bangkok. It will also bring a physical robot to Binance Blockchain Week, with BOTens providing support as an ecosystem partner.</p>
-                    <p class="long-copy-light">Stay tuned! 👀</p>
-                </div>
+                <article class="news-card">
+                    <div class="news-card-copy">
+                        <p class="news-date"><time datetime="2026-11">November 2026</time></p>
+                        <h3 id="news-card-title">Mongbotics Advances to Protocol Camp Cohort 10 Mid-Demo Day</h3>
+                        <p class="news-card-intro">Mongbotics, an ecosystem partner of BOTens, has advanced to the mid-demonstration stage of the Protocol Camp Cohort 10 startup competition. Mongbotics is the only Thai team to qualify for this cohort. The team will present its full-stack robotics solution at the Mid-Demo Day in Bangkok on November 28. Mongbotics will also bring a physical robot to Binance Blockchain Week for a public demonstration of its end-to-end technology, with BOTens providing support as an ecosystem partner.</p>
+                        <button class="news-read-more" type="button" aria-haspopup="dialog" aria-controls="protocol-camp-dialog" aria-labelledby="news-read-more-label news-card-title"><span id="news-read-more-label">Read full article</span> <span aria-hidden="true">→</span></button>
+                    </div>
+                    <img class="news-card-image" src="assets/news/protocol-camp-cohort-10-team.jpg" alt="Participants at a Protocol Camp event" width="1368" height="762" loading="lazy" decoding="async">
+                </article>
             </section>
         </div>
         <div class="page" id="page-robots" hidden>
@@ -594,6 +588,31 @@
     <footer><span>BOTens Robotics</span>
         <nav aria-label="Footer navigation"><a href="#home">Home</a><a href="#about">About Us</a><a href="#robots">Our Robots</a><a href="#delivery">Smart Delivery</a><a href="#aiot">AIoT Technology</a></nav>
     </footer><a class="button floating" href="#contact">Contact Us</a>
+    <dialog class="news-dialog" id="protocol-camp-dialog" aria-labelledby="protocol-camp-title" data-lenis-prevent>
+        <div class="news-dialog-toolbar">
+            <button class="news-dialog-close" type="button" autofocus>Close <span aria-hidden="true">×</span></button>
+        </div>
+                <article class="news-article" aria-labelledby="protocol-camp-title">
+                    <header class="news-article-header">
+                        <p class="news-date">November 2026</p>
+                        <h3 id="protocol-camp-title">Mongbotics Advances to Protocol Camp Cohort 10 Mid-Demo Day</h3>
+                    </header>
+                    <p class="news-lead">Mongbotics, an ecosystem partner of BOTens, has advanced to the mid-demonstration stage of the Protocol Camp Cohort 10 startup competition. Mongbotics is the only Thai team to qualify for this cohort. The team will present its full-stack robotics solution at the Mid-Demo Day in Bangkok on November 28. Mongbotics will also bring a physical robot to Binance Blockchain Week for a public demonstration of its end-to-end technology, with BOTens providing support as an ecosystem partner.</p>
+                    <figure class="news-partners">
+                        <img src="assets/news/mongbotics-protocol-camp-partners.jpg" alt="Mongbotics, Protocol Camp and Binance Blockchain Week Bangkok 2026 logos" width="1600" height="400" loading="lazy" decoding="async">
+                    </figure>
+                    <p>The Protocol Camp Cohort 10 competition officially launched on September 14, 2026. Following multiple rounds of highly selective screening and rigorous interviews, only 10 startup teams were selected. With a comprehensive technology roadmap and a clearly defined industry value proposition, Mongbotics stood out among the competing projects, making it the only team from the host country, Thailand, to advance.</p>
+                    <figure class="news-photo">
+                        <img src="assets/news/protocol-camp-cohort-10-team.jpg" alt="Participants posing together at a Protocol Camp event" width="1368" height="762" loading="lazy" decoding="async">
+                    </figure>
+                    <p>The competition requires formal weekly reviews throughout the program. Selected teams must continuously demonstrate project progress, technology deployment capabilities, and innovation potential to a judging panel of industry mentors and technology experts. Mongbotics has steadily refined its project through successive assessments, completing key milestones including its debut at the Cohort 10 kickoff and the presentation of its project vision at Korea Blockchain Week. The team is now preparing a live functional demonstration and a refined product presentation for the Mid-Demo Showcase.</p>
+                    <p>Competing in the AI-Enhanced/Vibe Coding track, Mongbotics integrates four core modules: the MongBot autonomous delivery robot, the MongCore control and management system, the MongChain on-chain identity and ownership framework, and the MongMarket peer-to-peer marketplace. The project has earned recognition from the judging panel for its exploration of practical applications in autonomous robotics. With autonomous robotics technology still at an emerging stage in Thailand, the project has the potential to promote AI adoption in the country and support science, technology, and innovation development in the Eastern Economic Corridor (EEC). It offers a practical example supporting Thailand’s goal of becoming a leading technology hub in Southeast Asia.</p>
+                    <figure class="news-photo">
+                        <img src="assets/news/protocol-camp-workshop.jpg" alt="Attendees watching a presentation at the Protocol Camp Cohort 10 kickoff" width="1396" height="727" loading="lazy" decoding="async">
+                    </figure>
+                    <p>The team is currently preparing for the next stages of the competition. It will also continue small-scale explorations with BOTens in areas including robot IP operations and on-chain identity and ownership verification, jointly building a broader base of reusable practical experience for the local deployment of AI-powered robots.</p>
+                </article>
+    </dialog>
 </body>
 
 </html>

@@ -277,10 +277,6 @@ details .dropdown {
     pointer-events: none
 }
 
-.news-reserved {
-    min-height: 120px
-}
-
 /* Specification table */
 table {
     width: 100%;
@@ -737,6 +733,181 @@ details .dropdown {
 .presence-intro {
     max-width: 960px;
     margin-bottom: 48px
+}
+
+/* News articles */
+.news-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(24px, 3vw, 48px);
+    max-width: 960px;
+    margin-inline: auto;
+    position: relative;
+    padding: 28px 0;
+    border-top: 1px solid var(--edge);
+    border-bottom: 1px solid var(--edge)
+}
+
+.news-card-image {
+    display: block;
+    width: 100%;
+    height: auto
+}
+
+.news-card h3 {
+    margin: 0 0 18px;
+    font-size: clamp(22px, 2.2vw, 32px);
+    line-height: 1.2;
+    letter-spacing: -.02em
+}
+
+.news-card-intro {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    margin: 0 0 18px;
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--soft)
+}
+
+.news-read-more {
+    border: 0;
+    padding: 0;
+    background: transparent;
+    color: #fff;
+    font-weight: 700
+}
+
+.news-read-more::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    cursor: pointer
+}
+
+.news-card:hover .news-read-more,
+.news-read-more:focus-visible {
+    text-decoration: underline;
+    text-underline-offset: 5px
+}
+
+.news-card:focus-within {
+    outline: 3px solid var(--accent);
+    outline-offset: 8px
+}
+
+.news-dialog {
+    width: min(1040px, calc(100% - 40px));
+    max-width: none;
+    max-height: calc(100dvh - 48px);
+    margin: auto;
+    padding: 0 clamp(24px, 5vw, 64px) 40px;
+    background: var(--ink);
+    color: #fff;
+    border: 1px solid var(--edge);
+    overflow-y: auto;
+    overscroll-behavior: contain
+}
+
+.news-dialog::backdrop {
+    background: rgb(0 0 0 / 75%)
+}
+
+.news-dialog-toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px 0;
+    background: var(--ink)
+}
+
+.news-dialog-close {
+    border: 1px solid var(--edge);
+    padding: 8px 16px;
+    background: transparent;
+    color: #fff
+}
+
+.news-dialog-close span {
+    margin-left: 10px;
+    font-size: 22px;
+    line-height: 1
+}
+
+.news-dialog-open {
+    overflow: hidden
+}
+
+.news-dialog .news-article {
+    padding-top: 12px;
+    border-top: 0
+}
+
+@media (max-width: 700px) {
+    .news-card {
+        grid-template-columns: 1fr;
+        gap: 24px
+    }
+
+    .news-dialog {
+        width: calc(100% - 24px);
+        max-height: calc(100dvh - 24px);
+        padding-inline: 20px
+    }
+}
+
+.news-article {
+    max-width: 960px;
+    margin-inline: auto;
+    border-top: 1px solid var(--edge);
+    padding-top: 32px
+}
+
+.news-date {
+    margin: 0 0 16px;
+    color: var(--soft);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase
+}
+
+.news-article h3 {
+    margin: 0 0 28px;
+    font-size: clamp(28px, 3.2vw, 48px);
+    line-height: 1.12;
+    letter-spacing: -.025em;
+    overflow-wrap: break-word
+}
+
+.news-article > p {
+    margin: 24px 0;
+    color: var(--soft);
+    font-size: clamp(17px, 1.4vw, 19px);
+    line-height: 1.8
+}
+
+.news-article > .news-lead {
+    color: #fff
+}
+
+.news-article figure {
+    margin: 36px 0
+}
+
+.news-article img {
+    display: block;
+    width: 100%;
+    height: auto
+}
+
+.news-partners {
+    background: #fff;
+    padding: clamp(12px, 2vw, 28px)
 }
 
 /* Statement: white band, text fills in while scrolling */

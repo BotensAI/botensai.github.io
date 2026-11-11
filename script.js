@@ -220,3 +220,29 @@ banner.addEventListener('error', () => { videoButton.textContent = 'Video unavai
 reducedMotion.addEventListener('change', updateVideo);
 window.addEventListener('hashchange', showPage);
 showPage();
+
+/* News preview card and full article dialog. */
+const newsDialog = document.getElementById('protocol-camp-dialog');
+const newsReadMore = document.querySelector('.news-read-more');
+if (newsDialog && newsReadMore) {
+  newsReadMore.addEventListener('click', () => {
+    newsDialog.showModal();
+    newsDialog.scrollTop = 0;
+    document.body.classList.add('news-dialog-open');
+    if (window.lenis) window.lenis.stop();
+  });
+  newsDialog.querySelector('.news-dialog-close').addEventListener('click', () => newsDialog.close());
+  newsDialog.addEventListener('click', event => {
+    if (event.target !== newsDialog) return;
+    const bounds = newsDialog.getBoundingClientRect();
+    if (event.clientX < bounds.left || event.clientX > bounds.right ||
+        event.clientY < bounds.top || event.clientY > bounds.bottom) newsDialog.close();
+  });
+  newsDialog.addEventListener('close', () => {
+    document.body.classList.remove('news-dialog-open');
+    if (window.lenis) window.lenis.start();
+  });
+  window.addEventListener('hashchange', () => {
+    if (newsDialog.open) newsDialog.close();
+  });
+}
