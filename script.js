@@ -142,7 +142,7 @@ window.animatePage = page => {
 };
 
 /* BOTENS core: page navigation, mobile menu, contact email and video playback (same behaviour as Style 1). */
-const pageNames = { home: 'Home', about: 'About Us', robots: 'Our Robots', delivery: 'Smart Delivery', aiot: 'AIoT Technology' };
+const pageNames = { home: 'Home', about: 'About Us', robots: 'Our Robots', delivery: 'Smart Delivery', aiot: 'AIoT Technology', press: 'Press' };
 const banner = document.getElementById('banner-video');
 const videoButton = document.getElementById('video-toggle');
 const menuButton = document.getElementById('menu-toggle');
@@ -175,16 +175,22 @@ function showPage() {
     scrollToContact(false);
     return;
   }
-  if (!pageNames[page]) page = 'home';
+  /* News articles live at #press/<slug> and show the .article-page with id page-<slug>, keeping Press highlighted. */
+  const slug = page.startsWith('press/') ? page.slice(6) : '';
+  const article = slug && document.querySelector('.article-page[id="page-' + CSS.escape(slug) + '"]');
+  if (article) page = slug;
+  else if (slug) page = 'press';
+  else if (!pageNames[page]) page = 'home';
+  const menuPage = article ? 'press' : page;
   document.querySelectorAll('.page').forEach(element => { element.hidden = element.id !== 'page-' + page; });
   document.querySelectorAll('nav a').forEach(link => {
-    if (link.hash === '#' + page) link.setAttribute('aria-current', 'page');
+    if (link.hash === '#' + menuPage) link.setAttribute('aria-current', 'page');
     else link.removeAttribute('aria-current');
   });
   document.querySelectorAll('details').forEach(element => { element.open = false; });
   navigation.classList.remove('open');
   menuButton.setAttribute('aria-expanded', 'false');
-  document.title = pageNames[page] + ' | BOTENS Robotics';
+  document.title = (article ? article.querySelector('h1').textContent : pageNames[page]) + ' | BOTENS Robotics';
   document.body.dataset.page = page;
   window.scrollTo(0, 0);
   if (window.lenis) window.lenis.scrollTo(0, { immediate: true });
@@ -218,31 +224,84 @@ banner.addEventListener('play', syncVideoButton);
 banner.addEventListener('pause', syncVideoButton);
 banner.addEventListener('error', () => { videoButton.textContent = 'Video unavailable'; videoButton.disabled = true; });
 reducedMotion.addEventListener('change', updateVideo);
+/* News: every .article-page is listed on Press (newest first); the 3 newest also appear as cards on Home.
+   Title, type and date are read from the article's own header; the card photo from its data-image. */
+const articles = [...document.querySelectorAll('.article-page')].map(page => {
+  const time = page.querySelector('.news-meta time');
+  const [year, month, day] = time.getAttribute('datetime').split('-').map(Number);
+  const monthName = new Date(year, month - 1).toLocaleString('en', { month: 'long' });
+  return {
+    href: '#press/' + page.id.replace(/^page-/, ''),
+    title: page.querySelector('h1').textContent.trim(),
+    type: page.querySelector('.news-type').textContent.trim(),
+    datetime: time.getAttribute('datetime'),
+    year: String(year),
+    shortDate: (day ? String(day).padStart(2, '0') + '.' : '') + String(month).padStart(2, '0') + '.' + year,
+    longDate: (day ? day + ' ' : '') + monthName + ' ' + year,
+    image: page.dataset.image
+  };
+}).sort((a, b) => b.datetime.localeCompare(a.datetime));
+
+function newsLink(story) {
+  const link = document.createElement('a');
+  link.className = 'news-open';
+  link.href = story.href;
+  link.setAttribute('aria-label', 'Read full article: ' + story.title);
+  return link;
+}
+function newsTime(story, text) {
+  const time = document.createElement('time');
+  time.dateTime = story.datetime;
+  time.textContent = text;
+  return time;
+}
+function newsElement(tag, className, text) {
+  const element = document.createElement(tag);
+  if (className) element.className = className;
+  if (text) element.textContent = text;
+  return element;
+}
+
+const pressList = document.querySelector('.press-list');
+articles.forEach(story => {
+  const row = newsElement('li');
+  row.dataset.year = story.year;
+  row.append(newsTime(story, story.shortDate), newsElement('h3', '', story.title), newsLink(story));
+  pressList.append(row);
+});
+
+const newsGrid = document.querySelector('.news-grid');
+articles.slice(0, 3).forEach(story => {
+  const card = newsElement('article', 'news-tile');
+  const image = newsElement('img');
+  Object.assign(image, { src: story.image, alt: '', loading: 'lazy', decoding: 'async' });
+  const meta = newsElement('p', 'news-meta');
+  meta.append(newsElement('span', 'news-type', story.type), newsTime(story, story.longDate));
+  const body = newsElement('div', 'news-tile-body');
+  body.append(meta, newsElement('h3', '', story.title));
+  card.append(image, body, newsLink(story));
+  newsGrid.append(card);
+});
+if (!articles.length) newsGrid.closest('section').hidden = true;
+
 window.addEventListener('hashchange', showPage);
 showPage();
 
-/* News preview card and full article dialog. */
-const newsDialog = document.getElementById('protocol-camp-dialog');
-const newsReadMore = document.querySelector('.news-read-more');
-if (newsDialog && newsReadMore) {
-  newsReadMore.addEventListener('click', () => {
-    newsDialog.showModal();
-    newsDialog.scrollTop = 0;
-    document.body.classList.add('news-dialog-open');
-    if (window.lenis) window.lenis.stop();
+/* Press release year tabs: built from each row's data-year, shown only once there is more than one year. */
+const pressYears = document.querySelector('.press-years');
+const pressRows = pressList.querySelectorAll('li');
+const years = [...new Set(articles.map(story => story.year))];
+if (pressYears && years.length > 1) {
+  ['All', ...years].forEach((year, index) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.textContent = year;
+    button.setAttribute('aria-pressed', index === 0);
+    button.addEventListener('click', () => {
+      pressYears.querySelectorAll('button').forEach(other => other.setAttribute('aria-pressed', other === button));
+      pressRows.forEach(row => { row.hidden = year !== 'All' && row.dataset.year !== year; });
+    });
+    pressYears.append(button);
   });
-  newsDialog.querySelector('.news-dialog-close').addEventListener('click', () => newsDialog.close());
-  newsDialog.addEventListener('click', event => {
-    if (event.target !== newsDialog) return;
-    const bounds = newsDialog.getBoundingClientRect();
-    if (event.clientX < bounds.left || event.clientX > bounds.right ||
-        event.clientY < bounds.top || event.clientY > bounds.bottom) newsDialog.close();
-  });
-  newsDialog.addEventListener('close', () => {
-    document.body.classList.remove('news-dialog-open');
-    if (window.lenis) window.lenis.start();
-  });
-  window.addEventListener('hashchange', () => {
-    if (newsDialog.open) newsDialog.close();
-  });
+  pressYears.hidden = false;
 }

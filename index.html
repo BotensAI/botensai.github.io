@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="BOTENS Robotics: autonomous delivery robots, Smart Delivery and AIoT Technology.">
     <title>BOTENS Robotics</title>
+    <link rel="icon" href="favicon.ico" sizes="48x48">
+    <link rel="icon" href="assets/icon/favicon-32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="assets/icon/apple-touch-icon.png">
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js" defer></script>
@@ -33,6 +36,7 @@
                         <a href="#delivery">Smart Delivery</a><a href="#aiot">AIoT Technology</a>
                     </div>
                 </details>
+                <a href="#press">Press</a>
             </nav>
             <div class="languages" aria-label="Language options (prototype only)">
                 <button type="button" title="English · prototype">EN</button> / <button type="button" title="Thai · prototype only">TH</button> / <button type="button" title="Chinese · prototype only">中文</button>
@@ -90,7 +94,6 @@
             </section>
             <section class="section" data-k="global-presence">
                 <div class="section-title" data-title="Global Presence">
-                    <span class="eyebrow">BOTENS ROBOTICS</span>
                     <h2>Global Presence</h2>
                 </div>
                 <p class="presence-intro">BOTens Robotics leverages the 1909 Group's global channel network and business resources to accelerate the global deployment of robot asset operations and build an intelligent delivery service ecosystem that is deployable, dispatchable and operable.</p>
@@ -120,6 +123,66 @@
                     </div>
                 </div>
             </section>
+            <section class="section" data-k="latest-news" aria-labelledby="latest-news-title">
+                <div class="section-title" data-title="Latest News">
+                    <h2 id="latest-news-title">Latest News</h2>
+                </div>
+                <!-- Filled by script.js with the 3 newest article pages (.article-page) -->
+                <div class="news-grid"></div>
+                <div class="actions"><a class="button secondary" href="#press">All press releases</a></div>
+            </section>
+        </div>
+        <div class="page" id="page-press" hidden>
+            <section class="hero press-hero" data-k="hero">
+                <div class="hero-copy">
+                    <h1>Press</h1>
+                    <p>Announcements and ecosystem news from BOTENS.</p>
+                </div>
+            </section>
+            <section class="section" data-k="press-releases" aria-labelledby="press-releases-title">
+                <div class="section-title" data-title="Press Releases">
+                    <h2 id="press-releases-title">Press Releases</h2>
+                </div>
+                <div class="press-years" role="group" aria-label="Filter by year" hidden></div>
+                <!-- Filled by script.js with every article page (.article-page), newest first -->
+                <ul class="press-list"></ul>
+            </section>
+        </div>
+        <!--
+            News articles. Each story is one .article-page block; script.js lists it on Press and,
+            if it is among the 3 newest, on Home. To add a story, copy a block and change:
+              id="page-<slug>"            the page opens at #press/<slug>
+              data-image                  photo for the Home card
+              .news-type, <time datetime> type label and date (YYYY-MM or YYYY-MM-DD; this sets the order)
+              <h1> and the article body
+        -->
+        <div class="page article-page" id="page-news-protocol-camp" data-image="assets/news/protocol-camp-cohort-10-team.jpg" hidden>
+            <section class="hero article-hero" data-k="hero">
+                <div class="hero-copy">
+                    <a class="back-link" href="#press"><span aria-hidden="true">←</span> All press releases</a>
+                    <div class="news-meta"><span class="news-type">Ecosystem News</span><time datetime="2026-11">November 2026</time></div>
+                    <h1>Mongbotics Advances to Protocol Camp Cohort 10 Mid-Demo Day</h1>
+                </div>
+            </section>
+            <section class="section article-body">
+                <article class="news-article">
+                    <p class="news-lead">Mongbotics, an ecosystem partner of BOTens, has advanced to the mid-demonstration stage of the Protocol Camp Cohort 10 startup competition. Mongbotics is the only Thai team to qualify for this cohort. The team will present its full-stack robotics solution at the Mid-Demo Day in Bangkok on November 28. Mongbotics will also bring a physical robot to Binance Blockchain Week for a public demonstration of its end-to-end technology, with BOTens providing support as an ecosystem partner.</p>
+                    <figure class="news-partners">
+                        <img src="assets/news/mongbotics-protocol-camp-partners.jpg" alt="Mongbotics, Protocol Camp and Binance Blockchain Week Bangkok 2026 logos" width="1600" height="400" loading="lazy" decoding="async">
+                    </figure>
+                    <p>The Protocol Camp Cohort 10 competition officially launched on September 14, 2026. Following multiple rounds of highly selective screening and rigorous interviews, only 10 startup teams were selected. With a comprehensive technology roadmap and a clearly defined industry value proposition, Mongbotics stood out among the competing projects, making it the only team from the host country, Thailand, to advance.</p>
+                    <figure class="news-photo">
+                        <img src="assets/news/protocol-camp-cohort-10-team.jpg" alt="Participants posing together at a Protocol Camp event" width="1368" height="762" loading="lazy" decoding="async">
+                    </figure>
+                    <p>The competition requires formal weekly reviews throughout the program. Selected teams must continuously demonstrate project progress, technology deployment capabilities, and innovation potential to a judging panel of industry mentors and technology experts. Mongbotics has steadily refined its project through successive assessments, completing key milestones including its debut at the Cohort 10 kickoff and the presentation of its project vision at Korea Blockchain Week. The team is now preparing a live functional demonstration and a refined product presentation for the Mid-Demo Showcase.</p>
+                    <p>Competing in the AI-Enhanced/Vibe Coding track, Mongbotics integrates four core modules: the MongBot autonomous delivery robot, the MongCore control and management system, the MongChain on-chain identity and ownership framework, and the MongMarket peer-to-peer marketplace. The project has earned recognition from the judging panel for its exploration of practical applications in autonomous robotics. With autonomous robotics technology still at an emerging stage in Thailand, the project has the potential to promote AI adoption in the country and support science, technology, and innovation development in the Eastern Economic Corridor (EEC). It offers a practical example supporting Thailand’s goal of becoming a leading technology hub in Southeast Asia.</p>
+                    <figure class="news-photo">
+                        <img src="assets/news/protocol-camp-workshop.jpg" alt="Attendees watching a presentation at the Protocol Camp Cohort 10 kickoff" width="1396" height="727" loading="lazy" decoding="async">
+                    </figure>
+                    <p>The team is currently preparing for the next stages of the competition. It will also continue small-scale explorations with BOTens in areas including robot IP operations and on-chain identity and ownership verification, jointly building a broader base of reusable practical experience for the local deployment of AI-powered robots.</p>
+                </article>
+                <a class="back-link" href="#press"><span aria-hidden="true">←</span> All press releases</a>
+            </section>
         </div>
         <div class="page" id="page-about" hidden>
             <section class="hero" data-k="hero">
@@ -137,7 +200,6 @@
             </section>
             <section class="section" data-k="core-capabilities">
                 <div class="section-title" data-title="Core Capabilities">
-                    <span class="eyebrow">BOTENS ROBOTICS</span>
                     <h2>Core Capabilities</h2>
                 </div>
                 <div class="split">
@@ -151,7 +213,6 @@
             </section>
             <section class="section" data-k="global-presence">
                 <div class="section-title" data-title="Global Presence">
-                    <span class="eyebrow">BOTENS ROBOTICS</span>
                     <h2>Global Presence</h2>
                 </div>
                 <div class="placeholder map" role="img" aria-label="Global presence map: Japan · Singapore · Pattaya, Thailand · Silicon Valley, USA">
@@ -183,7 +244,6 @@
             <!--
             <section class="section" data-k="core-team">
                 <div class="section-title" data-title="Core Team">
-                    <span class="eyebrow">BOTENS ROBOTICS</span>
                     <h2>Core Team</h2>
                 </div>
                 <div class="placeholder " role="img" aria-label="BOTENS core team photo">
@@ -192,21 +252,6 @@
                 <p class="long-copy">BOTens Robotics brings together a core team from the robotics and technology ecosystems of the United States, China, Singapore and other markets, covering key capabilities including corporate governance and capital operations, robotics technology and AI infrastructure R&amp;D, product engineering implementation, global sales and localized services. Team members have worked at leading global companies and organizations including AWS, G42 in the UAE and KPMG. They combine autonomous-driving technology backgrounds, AI infrastructure experience, global supply-chain management capabilities and international commercial operations experience, forming an integrated capability set of “global governance + technology R&amp;D + engineering implementation + commercialization operations” to continuously support the company's global expansion in Japan, Singapore, Thailand, the United States and other markets.</p>
             </section>
             -->
-            <section class="section" data-k="news-center" aria-labelledby="news-center-title">
-                <div class="section-title" data-title="News Center">
-                    <span class="eyebrow">BOTENS ROBOTICS</span>
-                    <h2 id="news-center-title">News Center</h2>
-                </div>
-                <article class="news-card">
-                    <div class="news-card-copy">
-                        <p class="news-date"><time datetime="2026-11">November 2026</time></p>
-                        <h3 id="news-card-title">Mongbotics Advances to Protocol Camp Cohort 10 Mid-Demo Day</h3>
-                        <p class="news-card-intro">Mongbotics, an ecosystem partner of BOTens, has advanced to the mid-demonstration stage of the Protocol Camp Cohort 10 startup competition. Mongbotics is the only Thai team to qualify for this cohort. The team will present its full-stack robotics solution at the Mid-Demo Day in Bangkok on November 28. Mongbotics will also bring a physical robot to Binance Blockchain Week for a public demonstration of its end-to-end technology, with BOTens providing support as an ecosystem partner.</p>
-                        <button class="news-read-more" type="button" aria-haspopup="dialog" aria-controls="protocol-camp-dialog" aria-labelledby="news-read-more-label news-card-title"><span id="news-read-more-label">Read full article</span> <span aria-hidden="true">→</span></button>
-                    </div>
-                    <img class="news-card-image" src="assets/news/protocol-camp-cohort-10-team.jpg" alt="Participants at a Protocol Camp event" width="1368" height="762" loading="lazy" decoding="async">
-                </article>
-            </section>
         </div>
         <div class="page" id="page-robots" hidden>
             <section class="hero" data-k="hero">
@@ -224,7 +269,6 @@
             </section>
             <section class="section" data-k="key-features-key-technologies">
                 <div class="section-title">
-                    <span class="eyebrow">BOTENS ROBOTICS</span>
                     <h2>Key Features · Key Technologies</h2>
                 </div>
                 <div class="grid two">
@@ -252,7 +296,6 @@
             </section>
             <section class="section" data-k="core-capabilities">
                 <div class="section-title" data-title="Core Capabilities">
-                    <span class="eyebrow">BOTENS ROBOTICS</span>
                     <h2>Core Capabilities</h2>
                 </div>
                 <div class="grid">
@@ -295,7 +338,6 @@
             </section>
             <section class="section" data-k="detail-display">
                 <div class="section-title" data-title="Detail Display">
-                    <span class="eyebrow">BOTENS ROBOTICS</span>
                     <h2>Detail Display</h2>
                 </div>
                 <div class="grid">
@@ -338,7 +380,6 @@
             </section>
             <section class="section" data-k="product-specifications">
                 <div class="section-title" data-title="Product Specifications">
-                    <span class="eyebrow">BOTENS ROBOTICS</span>
                     <h2>Product Specifications</h2>
                 </div>
                 <div class="grid two">
@@ -420,7 +461,6 @@
             </section>
             <section class="section" data-k="smart-delivery-scenarios">
                 <div class="section-title" data-title="Smart Delivery Scenarios">
-                    <span class="eyebrow">BOTENS ROBOTICS</span>
                     <h2>Smart Delivery Scenarios</h2>
                 </div>
                 <div class="grid two">
@@ -454,7 +494,6 @@
             </section>
             <section class="section" data-k="provide-a-one-stop-robot-asset-operation-solution">
                 <div class="section-title">
-                    <span class="eyebrow">BOTENS ROBOTICS</span>
                     <h2>Provide a one-stop robot asset operation solution.</h2>
                 </div>
             </section>
@@ -475,7 +514,6 @@
             </section>
             <section class="section" data-k="access-control">
                 <div class="section-title" data-title="Access Control">
-                    <span class="eyebrow">BOTENS ROBOTICS</span>
                     <h2>Access Control</h2>
                 </div>
                 <div class="split">
@@ -517,7 +555,6 @@
             </section>
             <section class="section" data-k="elevator-integration-control">
                 <div class="section-title">
-                    <span class="eyebrow">BOTENS ROBOTICS</span>
                     <h2>Elevator Integration Control</h2>
                 </div>
                 <div class="split">
@@ -559,14 +596,12 @@
             </section>
             <section class="section" data-k="provide-a-one-stop-robot-asset-operation-solution">
                 <div class="section-title">
-                    <span class="eyebrow">BOTENS ROBOTICS</span>
                     <h2>Provide a one-stop robot asset operation solution.</h2>
                 </div>
             </section>
         </div>
         <section class="section" data-k="let-s-talk-delivery" id="contact">
             <div class="section-title" data-title="Let’s talk delivery.">
-                <span class="eyebrow">BOTENS ROBOTICS</span>
                 <h2>Let’s talk delivery.</h2>
             </div>
             <div class="contact-grid">
@@ -586,33 +621,8 @@
         </section>
     </main>
     <footer><span>BOTens Robotics</span>
-        <nav aria-label="Footer navigation"><a href="#home">Home</a><a href="#about">About Us</a><a href="#robots">Our Robots</a><a href="#delivery">Smart Delivery</a><a href="#aiot">AIoT Technology</a></nav>
+        <nav aria-label="Footer navigation"><a href="#home">Home</a><a href="#about">About Us</a><a href="#robots">Our Robots</a><a href="#delivery">Smart Delivery</a><a href="#aiot">AIoT Technology</a><a href="#press">Press</a></nav>
     </footer><a class="button floating" href="#contact">Contact Us</a>
-    <dialog class="news-dialog" id="protocol-camp-dialog" aria-labelledby="protocol-camp-title" data-lenis-prevent>
-        <div class="news-dialog-toolbar">
-            <button class="news-dialog-close" type="button" autofocus>Close <span aria-hidden="true">×</span></button>
-        </div>
-                <article class="news-article" aria-labelledby="protocol-camp-title">
-                    <header class="news-article-header">
-                        <p class="news-date">November 2026</p>
-                        <h3 id="protocol-camp-title">Mongbotics Advances to Protocol Camp Cohort 10 Mid-Demo Day</h3>
-                    </header>
-                    <p class="news-lead">Mongbotics, an ecosystem partner of BOTens, has advanced to the mid-demonstration stage of the Protocol Camp Cohort 10 startup competition. Mongbotics is the only Thai team to qualify for this cohort. The team will present its full-stack robotics solution at the Mid-Demo Day in Bangkok on November 28. Mongbotics will also bring a physical robot to Binance Blockchain Week for a public demonstration of its end-to-end technology, with BOTens providing support as an ecosystem partner.</p>
-                    <figure class="news-partners">
-                        <img src="assets/news/mongbotics-protocol-camp-partners.jpg" alt="Mongbotics, Protocol Camp and Binance Blockchain Week Bangkok 2026 logos" width="1600" height="400" loading="lazy" decoding="async">
-                    </figure>
-                    <p>The Protocol Camp Cohort 10 competition officially launched on September 14, 2026. Following multiple rounds of highly selective screening and rigorous interviews, only 10 startup teams were selected. With a comprehensive technology roadmap and a clearly defined industry value proposition, Mongbotics stood out among the competing projects, making it the only team from the host country, Thailand, to advance.</p>
-                    <figure class="news-photo">
-                        <img src="assets/news/protocol-camp-cohort-10-team.jpg" alt="Participants posing together at a Protocol Camp event" width="1368" height="762" loading="lazy" decoding="async">
-                    </figure>
-                    <p>The competition requires formal weekly reviews throughout the program. Selected teams must continuously demonstrate project progress, technology deployment capabilities, and innovation potential to a judging panel of industry mentors and technology experts. Mongbotics has steadily refined its project through successive assessments, completing key milestones including its debut at the Cohort 10 kickoff and the presentation of its project vision at Korea Blockchain Week. The team is now preparing a live functional demonstration and a refined product presentation for the Mid-Demo Showcase.</p>
-                    <p>Competing in the AI-Enhanced/Vibe Coding track, Mongbotics integrates four core modules: the MongBot autonomous delivery robot, the MongCore control and management system, the MongChain on-chain identity and ownership framework, and the MongMarket peer-to-peer marketplace. The project has earned recognition from the judging panel for its exploration of practical applications in autonomous robotics. With autonomous robotics technology still at an emerging stage in Thailand, the project has the potential to promote AI adoption in the country and support science, technology, and innovation development in the Eastern Economic Corridor (EEC). It offers a practical example supporting Thailand’s goal of becoming a leading technology hub in Southeast Asia.</p>
-                    <figure class="news-photo">
-                        <img src="assets/news/protocol-camp-workshop.jpg" alt="Attendees watching a presentation at the Protocol Camp Cohort 10 kickoff" width="1396" height="727" loading="lazy" decoding="async">
-                    </figure>
-                    <p>The team is currently preparing for the next stages of the competition. It will also continue small-scale explorations with BOTens in areas including robot IP operations and on-chain identity and ownership verification, jointly building a broader base of reusable practical experience for the local deployment of AI-powered robots.</p>
-                </article>
-    </dialog>
 </body>
 
 </html>
