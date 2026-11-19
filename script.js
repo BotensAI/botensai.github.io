@@ -236,7 +236,7 @@ const articles = [...document.querySelectorAll('.article-page')].map(page => {
     type: page.querySelector('.news-type').textContent.trim(),
     datetime: time.getAttribute('datetime'),
     year: String(year),
-    shortDate: (day ? String(day).padStart(2, '0') + '.' : '') + String(month).padStart(2, '0') + '.' + year,
+    shortDate: String(month).padStart(2, '0') + '.' + year,
     longDate: (day ? day + ' ' : '') + monthName + ' ' + year,
     image: page.dataset.image
   };

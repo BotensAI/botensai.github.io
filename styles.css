@@ -969,6 +969,11 @@ details .dropdown {
     color: #fff
 }
 
+.news-article > h3 {
+    margin: 48px 0 -8px;
+    color: #fff
+}
+
 .news-article figure {
     margin: 36px 0
 }
