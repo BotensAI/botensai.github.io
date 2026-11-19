@@ -193,8 +193,9 @@ details .dropdown {
     color: inherit
 }
 
-.languages button:first-child {
-    font-weight: bold
+/* Active language selector. */
+.active {
+    font-weight: bold;
 }
 
 .mobile-menu {

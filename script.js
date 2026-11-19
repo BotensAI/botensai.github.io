@@ -1,3 +1,27 @@
+/* Translations. */
+const setLang = l => {
+    /* Save kv pair in browser, useful when changing page. */
+    localStorage.setItem('lang', l);
+
+    /* Replace all strings. */
+    document.querySelectorAll('[data-i18n]').forEach(el => el.innerHTML = i18n[l][el.dataset.i18n]);
+
+    /* Set active class (bold font) on selected language button. */
+    document.querySelectorAll('.languages button').forEach(b => b.classList.toggle('active', b.dataset.lang === l));
+};
+
+/* Change language after click. */
+document.querySelectorAll('.languages button').forEach(b => b.onclick = () => setLang(b.dataset.lang));
+
+/* Get the default language based on which button language is placed the active CSS class on.
+ * Fall back to english if active doesn't exist.
+ */
+const defaultLang = document.querySelector('.languages button.active')?.dataset.lang || 'en';
+
+/* Call the translation function. */
+setLang(localStorage.getItem('lang') || defaultLang);
+
+
 /* Shared motion setup: GSAP, ScrollTrigger, SplitText and Lenis smooth scroll.
    Content is visible by default. If a library fails to load or the visitor prefers
    reduced motion, nothing is hidden and the page works like Style 1. */

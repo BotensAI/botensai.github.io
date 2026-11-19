@@ -14,6 +14,7 @@
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js" defer></script>
     <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js" defer></script>
+    <script src="translations.js" defer></script>
     <script src="script.js" defer></script>
 </head>
 
@@ -38,8 +39,11 @@
                 </details>
                 <a href="#press">Press</a>
             </nav>
-            <div class="languages" aria-label="Language options (prototype only)">
-                <button type="button" title="English · prototype">EN</button> / <button type="button" title="Thai · prototype only">TH</button> / <button type="button" title="Chinese · prototype only">中文</button>
+            <div class="languages" aria-label="Language options">
+                <button type="button" title="English"   data-lang="en">EN</button> /
+                <button type="button" title="Thai"      data-lang="th">TH</button> /
+                <button type="button" title="Japanese"  data-lang="ja" class="active">JA</button> /
+                <button type="button" title="Chinese"   data-lang="zh">中文</button>
             </div>
             <button id="menu-toggle" class="mobile-menu" aria-expanded="false" aria-controls="primary-nav">Menu</button>
         </div>
@@ -48,8 +52,8 @@
         <div class="page" id="page-home">
             <section class="hero home-hero" data-k="home-hero">
                 <div class="hero-copy">
-                    <h1>Let delivery<br>arrive on its own.</h1>
-                    <p>BOTens leverages its global asset operation capabilities, together with technological innovation and localized services, to deliver practical and measurable intelligent service value to customers worldwide.</p>
+                    <h1 data-i18n="h1_hero_copy">Let delivery<br>arrive on its own.</h1>
+                    <p data-i18n="p_hero_copy">BOTens leverages its global asset operation capabilities, together with technological innovation and localized services, to deliver practical and measurable intelligent service value to customers worldwide.</p>
                 </div>
                 <div class="video-stage">
                     <video id="banner-video" muted loop playsinline preload="metadata" poster="assets/banner-poster.jpg" aria-label="BOTENS delivery robot banner video">
