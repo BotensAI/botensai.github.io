@@ -1,6 +1,7 @@
 /* Always use snake case for all HTML attribute keys. 4 space indentation. */
 const i18n = {
     en: {
+        press_years_all: "All",
         a_primary_nav_home: "Home",
         a_primary_nav_about: "About Us",
         a_primary_nav_products: "Products",
@@ -211,6 +212,7 @@ const i18n = {
         a_button_floating_contact: "Contact Us"
     },
     th: {
+        press_years_all: "ทั้งหมด",
         a_primary_nav_home: "บ้าน",
         a_primary_nav_about: "เกี่ยวกับเรา",
         a_primary_nav_products: "สินค้า",
@@ -422,6 +424,7 @@ const i18n = {
         a_button_floating_contact: "ติดต่อเรา"
     },
     ja: {
+        press_years_all: "すべて",
         a_primary_nav_home: "家",
         a_primary_nav_about: "私たちについて",
         a_primary_nav_products: "製品",
@@ -632,6 +635,7 @@ const i18n = {
         a_button_floating_contact: "お問い合わせ"
     },
     zh: {
+        press_years_all: "全部",
         a_primary_nav_home: "Home",
         a_primary_nav_about: "About Us",
         a_primary_nav_products: "Products",

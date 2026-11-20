@@ -1,4 +1,4 @@
-/* Translations. */
+/* Translations: run as first JS thing ever. */
 const setLang = l => {
     /* Save kv pair in browser, useful when changing page. */
     localStorage.setItem('lang', l);
@@ -6,8 +6,16 @@ const setLang = l => {
     /* Replace all strings. */
     document.querySelectorAll('[data-i18n]').forEach(el => el.innerHTML = i18n[l][el.dataset.i18n]);
 
+   /* Update dynamic long dates. */
+    document.querySelectorAll('time[data-dynamic-date="long"]').forEach(timeEl => {
+        if (timeEl._story) timeEl.textContent = formatLongDate(timeEl._story, l);
+    });
+
     /* Set active class (bold font) on selected language button. */
     document.querySelectorAll('.languages button').forEach(b => b.classList.toggle('active', b.dataset.lang === l));
+
+    /* Refresh ScrollTrigger if loaded */
+    if (window.ScrollTrigger) ScrollTrigger.refresh();
 };
 
 /* Change language after click. */
@@ -18,9 +26,127 @@ document.querySelectorAll('.languages button').forEach(b => b.onclick = () => se
  */
 const defaultLang = document.querySelector('.languages button.active')?.dataset.lang || 'en';
 
-/* Call the translation function. */
-setLang(localStorage.getItem('lang') || defaultLang);
+/* BOTENS core: page navigation, mobile menu, contact email and video playback (same behaviour as Style 1). */
+const pageNames = { home: 'Home', about: 'About Us', robots: 'Our Robots', delivery: 'Smart Delivery', aiot: 'AIoT Technology', press: 'Press' };
+const banner = document.getElementById('banner-video');
+const videoButton = document.getElementById('video-toggle');
+const menuButton = document.getElementById('menu-toggle');
+const navigation = document.getElementById('primary-nav');
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+let videoPausedByUser = false;
 
+/* News: every .article-page is listed on Press (newest first); the 3 newest also appear as cards on Home.
+   Title, type and date are read from the article's own header; the card photo from its data-image. */
+const articles = [...document.querySelectorAll('.article-page')].map(page => {
+  const time = page.querySelector('.news-meta time');
+  const h1 = page.querySelector('h1');
+  const typeEl = page.querySelector('.news-type');
+  const [year, month, day] = time.getAttribute('datetime').split('-').map(Number);
+  const monthName = new Date(year, month - 1).toLocaleString('en', { month: 'long' });
+  return {
+    href: '#press/' + page.id.replace(/^page-/, ''),
+    title: page.querySelector('h1').textContent.trim(),
+    titleKey: h1.dataset.i18n || '',
+    type: page.querySelector('.news-type').textContent.trim(),
+    typeKey: typeEl.dataset.i18n || '',
+    datetime: time.getAttribute('datetime'),
+    year: String(year),
+    month: month,
+    day: day,
+    shortDate: String(month).padStart(2, '0') + '.' + year,
+    // longDate: (day ? day + ' ' : '') + monthName + ' ' + year,
+    image: page.dataset.image
+  };
+}).sort((a, b) => b.datetime.localeCompare(a.datetime));
+
+/* Helper to format dates natively in en / th / ja / zh */
+function formatLongDate(story, lang = document.documentElement.lang || 'en') {
+  const dateObj = new Date(story.year, story.month - 1, story.day || 1);
+  return dateObj.toLocaleDateString(lang, {
+    year: 'numeric',
+    month: 'long',
+    ...(story.day ? { day: 'numeric' } : {})
+  });
+}
+
+function newsLink(story) {
+  const link = document.createElement('a');
+  link.className = 'news-open';
+  link.href = story.href;
+  link.setAttribute('aria-label', 'Read full article: ' + story.title);
+  return link;
+}
+
+function newsTime(story, text, isLong = false) {
+  const time = document.createElement('time');
+  time.dateTime = story.datetime;
+  time.textContent = text;
+  if (isLong) time.dataset.dynamicDate = 'long'; // Flag so language switcher can update it
+  time._story = story;
+  return time;
+}
+
+function newsElement(tag, className, text, i18nKey = '') {
+  const element = document.createElement(tag);
+  if (className) element.className = className;
+  if (text) element.textContent = text;
+  if (i18nKey) element.dataset.i18n = i18nKey;
+  return element;
+}
+
+const pressList = document.querySelector('.press-list');
+articles.forEach(story => {
+  const row = newsElement('li');
+  row.dataset.year = story.year;
+  row.append(
+    newsTime(story, story.shortDate),
+    newsElement('h3', '', story.title, story.titleKey),
+    newsLink(story)
+  );
+  pressList.append(row);
+});
+
+const newsGrid = document.querySelector('.news-grid');
+articles.slice(0, 3).forEach(story => {
+  const card = newsElement('article', 'news-tile');
+  const image = newsElement('img');
+  Object.assign(image, { src: story.image, alt: '', loading: 'lazy', decoding: 'async' });
+  const meta = newsElement('p', 'news-meta');
+  meta.append(
+    newsElement('span', 'news-type', story.type, story.typeKey),
+    newsTime(story, story.longDate, true)
+  );
+  const body = newsElement('div', 'news-tile-body');
+  body.append(meta, newsElement('h3', '', story.title, story.titleKey));
+  card.append(image, body, newsLink(story));
+  newsGrid.append(card);
+});
+if (!articles.length) newsGrid.closest('section').hidden = true;
+
+window.addEventListener('hashchange', showPage);
+showPage();
+
+/* Press release year tabs: built from each row's data-year, shown only once there is more than one year. */
+const pressYears = document.querySelector('.press-years');
+const pressRows = pressList.querySelectorAll('li');
+const years = [...new Set(articles.map(story => story.year))];
+if (pressYears && years.length > 1) {
+  ['All', ...years].forEach((year, index) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.textContent = year;
+    if (index === 0) button.dataset.i18n = 'press_years_all';
+    button.setAttribute('aria-pressed', index === 0);
+    button.addEventListener('click', () => {
+      pressYears.querySelectorAll('button').forEach(other => other.setAttribute('aria-pressed', other === button));
+      pressRows.forEach(row => { row.hidden = year !== 'All' && row.dataset.year !== year; });
+    });
+    pressYears.append(button);
+  });
+  pressYears.hidden = false;
+}
+
+setLang(localStorage.getItem('lang') || defaultLang);
 
 /* Shared motion setup: GSAP, ScrollTrigger, SplitText and Lenis smooth scroll.
    Content is visible by default. If a library fails to load or the visitor prefers
@@ -165,14 +291,6 @@ window.animatePage = page => {
   gsap.from(contact, { y: 120, duration: 1.2, ease: 'power3.out', scrollTrigger: { trigger: contact, start: 'top 95%', once: true } });
 };
 
-/* BOTENS core: page navigation, mobile menu, contact email and video playback (same behaviour as Style 1). */
-const pageNames = { home: 'Home', about: 'About Us', robots: 'Our Robots', delivery: 'Smart Delivery', aiot: 'AIoT Technology', press: 'Press' };
-const banner = document.getElementById('banner-video');
-const videoButton = document.getElementById('video-toggle');
-const menuButton = document.getElementById('menu-toggle');
-const navigation = document.getElementById('primary-nav');
-const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-let videoPausedByUser = false;
 
 function scrollToContact(smooth) {
   const contact = document.getElementById('contact');
@@ -248,84 +366,3 @@ banner.addEventListener('play', syncVideoButton);
 banner.addEventListener('pause', syncVideoButton);
 banner.addEventListener('error', () => { videoButton.textContent = 'Video unavailable'; videoButton.disabled = true; });
 reducedMotion.addEventListener('change', updateVideo);
-/* News: every .article-page is listed on Press (newest first); the 3 newest also appear as cards on Home.
-   Title, type and date are read from the article's own header; the card photo from its data-image. */
-const articles = [...document.querySelectorAll('.article-page')].map(page => {
-  const time = page.querySelector('.news-meta time');
-  const [year, month, day] = time.getAttribute('datetime').split('-').map(Number);
-  const monthName = new Date(year, month - 1).toLocaleString('en', { month: 'long' });
-  return {
-    href: '#press/' + page.id.replace(/^page-/, ''),
-    title: page.querySelector('h1').textContent.trim(),
-    type: page.querySelector('.news-type').textContent.trim(),
-    datetime: time.getAttribute('datetime'),
-    year: String(year),
-    shortDate: String(month).padStart(2, '0') + '.' + year,
-    longDate: (day ? day + ' ' : '') + monthName + ' ' + year,
-    image: page.dataset.image
-  };
-}).sort((a, b) => b.datetime.localeCompare(a.datetime));
-
-function newsLink(story) {
-  const link = document.createElement('a');
-  link.className = 'news-open';
-  link.href = story.href;
-  link.setAttribute('aria-label', 'Read full article: ' + story.title);
-  return link;
-}
-function newsTime(story, text) {
-  const time = document.createElement('time');
-  time.dateTime = story.datetime;
-  time.textContent = text;
-  return time;
-}
-function newsElement(tag, className, text) {
-  const element = document.createElement(tag);
-  if (className) element.className = className;
-  if (text) element.textContent = text;
-  return element;
-}
-
-const pressList = document.querySelector('.press-list');
-articles.forEach(story => {
-  const row = newsElement('li');
-  row.dataset.year = story.year;
-  row.append(newsTime(story, story.shortDate), newsElement('h3', '', story.title), newsLink(story));
-  pressList.append(row);
-});
-
-const newsGrid = document.querySelector('.news-grid');
-articles.slice(0, 3).forEach(story => {
-  const card = newsElement('article', 'news-tile');
-  const image = newsElement('img');
-  Object.assign(image, { src: story.image, alt: '', loading: 'lazy', decoding: 'async' });
-  const meta = newsElement('p', 'news-meta');
-  meta.append(newsElement('span', 'news-type', story.type), newsTime(story, story.longDate));
-  const body = newsElement('div', 'news-tile-body');
-  body.append(meta, newsElement('h3', '', story.title));
-  card.append(image, body, newsLink(story));
-  newsGrid.append(card);
-});
-if (!articles.length) newsGrid.closest('section').hidden = true;
-
-window.addEventListener('hashchange', showPage);
-showPage();
-
-/* Press release year tabs: built from each row's data-year, shown only once there is more than one year. */
-const pressYears = document.querySelector('.press-years');
-const pressRows = pressList.querySelectorAll('li');
-const years = [...new Set(articles.map(story => story.year))];
-if (pressYears && years.length > 1) {
-  ['All', ...years].forEach((year, index) => {
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.textContent = year;
-    button.setAttribute('aria-pressed', index === 0);
-    button.addEventListener('click', () => {
-      pressYears.querySelectorAll('button').forEach(other => other.setAttribute('aria-pressed', other === button));
-      pressRows.forEach(row => { row.hidden = year !== 'All' && row.dataset.year !== year; });
-    });
-    pressYears.append(button);
-  });
-  pressYears.hidden = false;
-}
